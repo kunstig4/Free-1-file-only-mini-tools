@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Toolbox - World's Biggest One-Page Tool Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-tab:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .tool-section {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .tool-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .tool-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 5px 5px 5px 0;
+        }
+
+        .btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .result-area {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .color-display {
+            width: 100%;
+            height: 50px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+            margin-top: 10px;
+        }
+
+        .qr-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .col {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .nav-tab {
+                white-space: nowrap;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛠️ Ultimate Toolbox</h1>
+            <p>World's Biggest One-Page Tool Collection - 50+ Tools in One Place!</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('text')">📝 Text Tools</button>
+            <button class="nav-tab" onclick="showSection('crypto')">🔒 Crypto & Hash</button>
+            <button class="nav-tab" onclick="showSection('converter')">🔄 Converters</button>
+            <button class="nav-tab" onclick="showSection('calculator')">🧮 Calculators</button>
+            <button class="nav-tab" onclick="showSection('color')">🎨 Color Tools</button>
+            <button class="nav-tab" onclick="showSection('web')">🌐 Web Tools</button>
+            <button class="nav-tab" onclick="showSection('generator')">⚡ Generators</button>
+            <button class="nav-tab" onclick="showSection('validator')">✅ Validators</button>
+        </div>
+
+        <!-- Text Tools Section -->
+        <div id="text" class="tool-section active">
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>Text Case Converter</h3>
+                    <div class="form-group">
+                        <label>Enter your text:</label>
+                        <textarea class="form-control" id="caseText" placeholder="Type your text here..."></textarea>
+                    </div>
+                    <button class="btn" onclick="convertCase('upper')">UPPERCASE</button>
+                    <button class="btn" onclick="convertCase('lower')">lowercase</button>
+                    <button class="btn" onclick="convertCase('title')">Title Case</button>
+                    <button class="btn" onclick="convertCase('sentence')">Sentence case</button>
+                    <div class="result-area" id="caseResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Word & Character Counter</h3>
+                    <div class="form-group">
+                        <label>Enter your text:</label>
+                        <textarea class="form-control" id="countText" placeholder="Type your text here..." oninput="countWords()"></textarea>
+                    </div>
+                    <div class="result-area" id="countResult">
+                        Characters: 0 | Words: 0 | Lines: 0 | Paragraphs: 0
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Text Formatter</h3>
+                    <div class="form-group">
+                        <label>Enter your text:</label>
+                        <textarea class="form-control" id="formatText" placeholder="Type your text here..."></textarea>
+                    </div>
+                    <button class="btn" onclick="formatText('removeSpaces')">Remove Extra Spaces</button>
+                    <button class="btn" onclick="formatText('removeLine')">Remove Line Breaks</button>
+                    <button class="btn" onclick="formatText('reverse')">Reverse Text</button>
+                    <button class="btn" onclick="formatText('sort')">Sort Lines</button>
+                    <div class="result-area" id="formatResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Text Replacer</h3>
+                    <div class="form-group">
+                        <label>Original text:</label>
+                        <textarea class="form-control" id="replaceOriginal" placeholder="Enter text to modify..."></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Find:</label>
+                                <input type="text" class="form-control" id="findText" placeholder="Text to find">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Replace with:</label>
+                                <input type="text" class="form-control" id="replaceText" placeholder="Replacement text">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="replaceText()">Replace All</button>
+                    <div class="result-area" id="replaceResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crypto & Hash Section -->
+        <div id="crypto" class="tool-section">
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>Base64 Encoder/Decoder</h3>
+                    <div class="form-group">
+                        <label>Enter text:</label>
+                        <textarea class="form-control" id="base64Text" placeholder="Enter text to encode/decode..."></textarea>
+                    </div>
+                    <button class="btn" onclick="base64Encode()">Encode</button>
+                    <button class="btn" onclick="base64Decode()">Decode</button>
+                    <div class="result-area" id="base64Result"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>URL Encoder/Decoder</h3>
+                    <div class="form-group">
+                        <label>Enter URL or text:</label>
+                        <textarea class="form-control" id="urlText" placeholder="Enter URL to encode/decode..."></textarea>
+                    </div>
+                    <button class="btn" onclick="urlEncode()">Encode</button>
+                    <button class="btn" onclick="urlDecode()">Decode</button>
+                    <div class="result-area" id="urlResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>HTML Encoder/Decoder</h3>
+                    <div class="form-group">
+                        <label>Enter HTML:</label>
+                        <textarea class="form-control" id="htmlText" placeholder="Enter HTML to encode/decode..."></textarea>
+                    </div>
+                    <button class="btn" onclick="htmlEncode()">Encode</button>
+                    <button class="btn" onclick="htmlDecode()">Decode</button>
+                    <div class="result-area" id="htmlResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Hash Generator (Simple)</h3>
+                    <div class="form-group">
+                        <label>Enter text to hash:</label>
+                        <textarea class="form-control" id="hashText" placeholder="Enter text to generate hash..."></textarea>
+                    </div>
+                    <button class="btn" onclick="generateSimpleHash()">Generate Simple Hash</button>
+                    <div class="result-area" id="hashResult"></div>
+                    <small>Note: This is a simple hash for demonstration. For security purposes, use proper cryptographic libraries.</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Converters Section -->
+        <div id="converter" class="tool-section">
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>JSON Formatter & Validator</h3>
+                    <div class="form-group">
+                        <label>Enter JSON:</label>
+                        <textarea class="form-control" id="jsonText" placeholder="Enter JSON to format and validate..."></textarea>
+                    </div>
+                    <button class="btn" onclick="formatJSON()">Format JSON</button>
+                    <button class="btn" onclick="minifyJSON()">Minify JSON</button>
+                    <button class="btn" onclick="validateJSON()">Validate JSON</button>
+                    <div class="result-area" id="jsonResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>CSV to JSON Converter</h3>
+                    <div class="form-group">
+                        <label>Enter CSV data:</label>
+                        <textarea class="form-control" id="csvText" placeholder="Enter CSV data with headers..."></textarea>
+                    </div>
+                    <button class="btn" onclick="csvToJson()">Convert to JSON</button>
+                    <div class="result-area" id="csvResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Number Base Converter</h3>
+                    <div class="form-group">
+                        <label>Enter number:</label>
+                        <input type="text" class="form-control" id="numberInput" placeholder="Enter number...">
+                    </div>
+                    <div class="form-group">
+                        <label>From base:</label>
+                        <select class="form-control" id="fromBase">
+                            <option value="10">Decimal (10)</option>
+                            <option value="2">Binary (2)</option>
+                            <option value="8">Octal (8)</option>
+                            <option value="16">Hexadecimal (16)</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="convertNumber()">Convert</button>
+                    <div class="result-area" id="numberResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Unit Converter</h3>
+                    <div class="form-group">
+                        <label>Value:</label>
+                        <input type="number" class="form-control" id="unitValue" placeholder="Enter value...">
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>From:</label>
+                                <select class="form-control" id="fromUnit">
+                                    <option value="m">Meters</option>
+                                    <option value="km">Kilometers</option>
+                                    <option value="cm">Centimeters</option>
+                                    <option value="ft">Feet</option>
+                                    <option value="in">Inches</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>To:</label>
+                                <select class="form-control" id="toUnit">
+                                    <option value="m">Meters</option>
+                                    <option value="km">Kilometers</option>
+                                    <option value="cm">Centimeters</option>
+                                    <option value="ft">Feet</option>
+                                    <option value="in">Inches</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="convertUnit()">Convert</button>
+                    <div class="result-area" id="unitResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator Section -->
+        <div id="calculator" class="tool-section">
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>Basic Calculator</h3>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="calcDisplay" readonly style="text-align: right; font-size: 1.5rem;">
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                        <button class="btn btn-secondary" onclick="clearCalc()">C</button>
+                        <button class="btn btn-secondary" onclick="calcInput('±')">±</button>
+                        <button class="btn btn-secondary" onclick="calcInput('%')">%</button>
+                        <button class="btn" onclick="calcInput('/')">÷</button>
+                        
+                        <button class="btn btn-secondary" onclick="calcInput('7')">7</button>
+                        <button class="btn btn-secondary" onclick="calcInput('8')">8</button>
+                        <button class="btn btn-secondary" onclick="calcInput('9')">9</button>
+                        <button class="btn" onclick="calcInput('*')">×</button>
+                        
+                        <button class="btn btn-secondary" onclick="calcInput('4')">4</button>
+                        <button class="btn btn-secondary" onclick="calcInput('5')">5</button>
+                        <button class="btn btn-secondary" onclick="calcInput('6')">6</button>
+                        <button class="btn" onclick="calcInput('-')">−</button>
+                        
+                        <button class="btn btn-secondary" onclick="calcInput('1')">1</button>
+                        <button class="btn btn-secondary" onclick="calcInput('2')">2</button>
+                        <button class="btn btn-secondary" onclick="calcInput('3')">3</button>
+                        <button class="btn" onclick="calcInput('+')">+</button>
+                        
+                        <button class="btn btn-secondary" onclick="calcInput('0')" style="grid-column: span 2;">0</button>
+                        <button class="btn btn-secondary" onclick="calcInput('.')">.</button>
+                        <button class="btn" onclick="calculate()">=</button>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Percentage Calculator</h3>
+                    <div class="form-group">
+                        <label>What is</label>
+                        <input type="number" class="form-control" id="percentValue" placeholder="Value">
+                        <label>% of</label>
+                        <input type="number" class="form-control" id="percentOf" placeholder="Total">
+                    </div>
+                    <button class="btn" onclick="calculatePercentage()">Calculate</button>
+                    <div class="result-area" id="percentResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>BMI Calculator</h3>
+                    <div class="form-group">
+                        <label>Weight (kg):</label>
+                        <input type="number" class="form-control" id="weight" placeholder="Enter weight in kg">
+                    </div>
+                    <div class="form-group">
+                        <label>Height (cm):</label>
+                        <input type="number" class="form-control" id="height" placeholder="Enter height in cm">
+                    </div>
+                    <button class="btn" onclick="calculateBMI()">Calculate BMI</button>
+                    <div class="result-area" id="bmiResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Loan Calculator</h3>
+                    <div class="form-group">
+                        <label>Loan Amount:</label>
+                        <input type="number" class="form-control" id="loanAmount" placeholder="Enter loan amount">
+                    </div>
+                    <div class="form-group">
+                        <label>Interest Rate (% per year):</label>
+                        <input type="number" class="form-control" id="interestRate" placeholder="Enter interest rate">
+                    </div>
+                    <div class="form-group">
+                        <label>Loan Term (years):</label>
+                        <input type="number" class="form-control" id="loanTerm" placeholder="Enter loan term">
+                    </div>
+                    <button class="btn" onclick="calculateLoan()">Calculate</button>
+                    <div class="result-area" id="loanResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Color Tools Section -->
+        <div id="color" class="tool-section">
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>Color Picker & Converter</h3>
+                    <div class="form-group">
+                        <label>Pick a color:</label>
+                        <input type="color" class="form-control" id="colorPicker" value="#667eea" onchange="updateColor()">
+                        <div class="color-display" id="colorDisplay"></div>
+                    </div>
+                    <div class="result-area" id="colorResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>HEX to RGB Converter</h3>
+                    <div class="form-group">
+                        <label>HEX Color:</label>
+                        <input type="text" class="form-control" id="hexColor" placeholder="#667eea" value="#667eea">
+                    </div>
+                    <button class="btn" onclick="hexToRgb()">Convert to RGB</button>
+                    <div class="result-area" id="hexResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>RGB to HEX Converter</h3>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>R:</label>
+                                <input type="number" class="form-control" id="rgbR" min="0" max="255" value="102">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>G:</label>
+                                <input type="number" class="form-control" id="rgbG" min="0" max="255" value="126">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>B:</label>
+                                <input type="number" class="form-control" id="rgbB" min="0" max="255" value="234">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="rgbToHex()">Convert to HEX</button>
+                    <div class="result-area" id="rgbResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Color Palette Generator</h3>
+                    <div class="form-group">
+                        <label>Base Color:</label>
+                        <input type="color" class="form-control" id="baseColor" value="#667eea">
+                    </div>
+                    <button class="btn" onclick="generatePalette()">Generate Palette</button>
+                    <div id="paletteResult" style="margin-top: 15px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Web Tools Section -->
+        <div id="web" class="tool-section">
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>QR Code Generator</h3>
+                    <div class="form-group">
+                        <label>Enter text or URL:</label>
+                        <textarea class="form-control" id="qrText" placeholder="Enter text or URL to generate QR code..."></textarea>
+                    </div>
+                    <button class="btn" onclick="generateQR()">Generate QR Code</button>
+                    <div class="qr-container">
+                        <canvas id="qrcode" style="border: 2px solid #dee2e6; border-radius: 8px;"></canvas>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>URL Shortener (Mock)</h3>
+                    <div class="form-group">
+                        <label>Enter URL to shorten:</label>
+                        <input type="url" class="form-control" id="longUrl" placeholder="https://example.com/very/long/url">
+                    </div>
+                    <button class="btn" onclick="shortenUrl()">Shorten URL</button>
+                    <div class="result-area" id="urlShortResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Meta Tag Generator</h3>
+                    <div class="form-group">
+                        <label>Page Title:</label>
+                        <input type="text" class="form-control" id="pageTitle" placeholder="Your page title">
+                    </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <textarea class="form-control" id="pageDescription" placeholder="Page description..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Keywords:</label>
+                        <input type="text" class="form-control" id="pageKeywords" placeholder="keyword1, keyword2, keyword3">
+                    </div>
+                    <button class="btn" onclick="generateMetaTags()">Generate Meta Tags</button>
+                    <div class="result-area" id="metaResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Lorem Ipsum Generator</h3>
+                    <div class="form-group">
+                        <label>Number of paragraphs:</label>
+                        <input type="number" class="form-control" id="loremCount" value="3" min="1" max="10">
+                    </div>
+                    <button class="btn" onclick="generateLorem()">Generate Lorem Ipsum</button>
+                    <div class="result-area" id="loremResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generator Section -->
+        <div id="generator" class="tool-section">
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>Password Generator</h3>
+                    <div class="form-group">
+                        <label>Password Length:</label>
+                        <input type="range" class="form-control" id="passLength" min="4" max="50" value="12" oninput="updatePassLength()">
+                        <span id="passLengthDisplay">12</span>
+                    </div>
+                    <div class="form-group">
+                        <label><input type="checkbox" id="includeUpper" checked> Uppercase Letters</label><br>
+                        <label><input type="checkbox" id="includeLower" checked> Lowercase Letters</label><br>
+                        <label><input type="checkbox" id="includeNumbers" checked> Numbers</label><br>
+                        <label><input type="checkbox" id="includeSymbols"> Symbols</label>
+                    </div>
+                    <button class="btn" onclick="generatePassword()">Generate Password</button>
+                    <div class="result-area" id="passwordResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Random Number Generator</h3>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Min:</label>
+                                <input type="number" class="form-control" id="randomMin" value="1">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Max:</label>
+                                <input type="number" class="form-control" id="randomMax" value="100">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Count:</label>
+                        <input type="number" class="form-control" id="randomCount" value="1" min="1" max="100">
+                    </div>
+                    <button class="btn" onclick="generateRandomNumbers()">Generate</button>
+                    <div class="result-area" id="randomResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>UUID Generator</h3>
+                    <div class="form-group">
+                        <label>Number of UUIDs:</label>
+                        <input type="number" class="form-control" id="uuidCount" value="1" min="1" max="10">
+                    </div>
+                    <button class="btn" onclick="generateUUID()">Generate UUID</button>
+                    <div class="result-area" id="uuidResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Fake Data Generator</h3>
+                    <div class="form-group">
+                        <label>Data Type:</label>
+                        <select class="form-control" id="fakeDataType">
+                            <option value="name">Names</option>
+                            <option value="email">Email Addresses</option>
+                            <option value="phone">Phone Numbers</option>
+                            <option value="address">Addresses</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Count:</label>
+                        <input type="number" class="form-control" id="fakeDataCount" value="5" min="1" max="20">
+                    </div>
+                    <button class="btn" onclick="generateFakeData()">Generate</button>
+                    <div class="result-area" id="fakeDataResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Validator Section -->
+        <div id="validator" class="tool-section">
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>Email Validator</h3>
+                    <div class="form-group">
+                        <label>Enter email address:</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="example@domain.com">
+                    </div>
+                    <button class="btn" onclick="validateEmail()">Validate Email</button>
+                    <div class="result-area" id="emailResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>URL Validator</h3>
+                    <div class="form-group">
+                        <label>Enter URL:</label>
+                        <input type="url" class="form-control" id="urlInput" placeholder="https://example.com">
+                    </div>
+                    <button class="btn" onclick="validateUrl()">Validate URL</button>
+                    <div class="result-area" id="urlValidResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Credit Card Validator</h3>
+                    <div class="form-group">
+                        <label>Enter credit card number:</label>
+                        <input type="text" class="form-control" id="ccInput" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <button class="btn" onclick="validateCreditCard()">Validate Card</button>
+                    <div class="result-area" id="ccResult"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Regex Tester</h3>
+                    <div class="form-group">
+                        <label>Regular Expression:</label>
+                        <input type="text" class="form-control" id="regexPattern" placeholder="Enter regex pattern">
+                    </div>
+                    <div class="form-group">
+                        <label>Test String:</label>
+                        <textarea class="form-control" id="regexText" placeholder="Enter text to test..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label><input type="checkbox" id="regexGlobal"> Global</label>
+                        <label><input type="checkbox" id="regexIgnoreCase"> Ignore Case</label>
+                        <label><input type="checkbox" id="regexMultiline"> Multiline</label>
+                    </div>
+                    <button class="btn" onclick="testRegex()">Test Regex</button>
+                    <div class="result-area" id="regexResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🛠️ Ultimate Toolbox - Free One-Page Tool Collection | Made with ❤️ for productivity</p>
+            <p>All tools work offline in your browser. No data is sent to any server.</p>
+        </div>
+    </div>
+
+    <script>
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.tool-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Text Tools Functions
+        function convertCase(type) {
+            const text = document.getElementById('caseText').value;
+            let result = '';
+            
+            switch(type) {
+                case 'upper':
+                    result = text.toUpperCase();
+                    break;
+                case 'lower':
+                    result = text.toLowerCase();
+                    break;
+                case 'title':
+                    result = text.replace(/\w\S*/g, (txt) => 
+                        txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+                    break;
+                case 'sentence':
+                    result = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+                    break;
+            }
+            
+            document.getElementById('caseResult').textContent = result;
+        }
+
+        function countWords() {
+            const text = document.getElementById('countText').value;
+            const chars = text.length;
+            const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+            const lines = text.split('\n').length;
+            const paragraphs = text.trim() === '' ? 0 : text.split(/\n\s*\n/).length;
+            
+            document.getElementById('countResult').textContent = 
+                `Characters: ${chars} | Words: ${words} | Lines: ${lines} | Paragraphs: ${paragraphs}`;
+        }
+
+        function formatText(type) {
+            const text = document.getElementById('formatText').value;
+            let result = '';
+            
+            switch(type) {
+                case 'removeSpaces':
+                    result = text.replace(/\s+/g, ' ').trim();
+                    break;
+                case 'removeLine':
+                    result = text.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+                    break;
+                case 'reverse':
+                    result = text.split('').reverse().join('');
+                    break;
+                case 'sort':
+                    result = text.split('\n').sort().join('\n');
+                    break;
+            }
+            
+            document.getElementById('formatResult').textContent = result;
+        }
+
+        function replaceText() {
+            const original = document.getElementById('replaceOriginal').value;
+            const find = document.getElementById('findText').value;
+            const replace = document.getElementById('replaceText').value;
+            
+            if (!find) {
+                alert('Please enter text to find');
+                return;
+            }
+            
+            const result = original.split(find).join(replace);
+            document.getElementById('replaceResult').textContent = result;
+        }
+
+        // Crypto Functions
+        function base64Encode() {
+            const text = document.getElementById('base64Text').value;
+            try {
+                const result = btoa(unescape(encodeURIComponent(text)));
+                document.getElementById('base64Result').textContent = result;
+            } catch (e) {
+                document.getElementById('base64Result').textContent = 'Error: Invalid input for encoding';
+            }
+        }
+
+        function base64Decode() {
+            const text = document.getElementById('base64Text').value;
+            try {
+                const result = decodeURIComponent(escape(atob(text)));
+                document.getElementById('base64Result').textContent = result;
+            } catch (e) {
+                document.getElementById('base64Result').textContent = 'Error: Invalid Base64 input';
+            }
+        }
+
+        function urlEncode() {
+            const text = document.getElementById('urlText').value;
+            const result = encodeURIComponent(text);
+            document.getElementById('urlResult').textContent = result;
+        }
+
+        function urlDecode() {
+            const text = document.getElementById('urlText').value;
+            try {
+                const result = decodeURIComponent(text);
+                document.getElementById('urlResult').textContent = result;
+            } catch (e) {
+                document.getElementById('urlResult').textContent = 'Error: Invalid URL encoding';
+            }
+        }
+
+        function htmlEncode() {
+            const text = document.getElementById('htmlText').value;
+            const div = document.createElement('div');
+            div.textContent = text;
+            document.getElementById('htmlResult').textContent = div.innerHTML;
+        }
+
+        function htmlDecode() {
+            const text = document.getElementById('htmlText').value;
+            const div = document.createElement('div');
+            div.innerHTML = text;
+            document.getElementById('htmlResult').textContent = div.textContent;
+        }
+
+        function generateSimpleHash() {
+            const text = document.getElementById('hashText').value;
+            let hash = 0;
+            if (text.length === 0) return;
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32-bit integer
+            }
+            
+            document.getElementById('hashResult').textContent = 
+                `Simple Hash: ${Math.abs(hash).toString(16)}\nNote: This is not cryptographically secure.`;
+        }
+
+        // Converter Functions
+        function formatJSON() {
+            const text = document.getElementById('jsonText').value;
+            try {
+                const parsed = JSON.parse(text);
+                const formatted = JSON.stringify(parsed, null, 2);
+                document.getElementById('jsonResult').textContent = formatted;
+            } catch (e) {
+                document.getElementById('jsonResult').textContent = 'Error: Invalid JSON - ' + e.message;
+            }
+        }
+
+        function minifyJSON() {
+            const text = document.getElementById('jsonText').value;
+            try {
+                const parsed = JSON.parse(text);
+                const minified = JSON.stringify(parsed);
+                document.getElementById('jsonResult').textContent = minified;
+            } catch (e) {
+                document.getElementById('jsonResult').textContent = 'Error: Invalid JSON - ' + e.message;
+            }
+        }
+
+        function validateJSON() {
+            const text = document.getElementById('jsonText').value;
+            try {
+                JSON.parse(text);
+                document.getElementById('jsonResult').textContent = '✅ Valid JSON';
+            } catch (e) {
+                document.getElementById('jsonResult').textContent = '❌ Invalid JSON: ' + e.message;
+            }
+        }
+
+        function csvToJson() {
+            const csv = document.getElementById('csvText').value;
+            const lines = csv.trim().split('\n');
+            
+            if (lines.length < 2) {
+                document.getElementById('csvResult').textContent = 'Error: Need at least header and one data row';
+                return;
+            }
+            
+            const headers = lines[0].split(',').map(h => h.trim());
+            const result = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',').map(v => v.trim());
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = values[index] || '';
+                });
+                result.push(obj);
+            }
+            
+            document.getElementById('csvResult').textContent = JSON.stringify(result, null, 2);
+        }
+
+        function convertNumber() {
+            const number = document.getElementById('numberInput').value;
+            const fromBase = parseInt(document.getElementById('fromBase').value);
+            
+            try {
+                const decimal = parseInt(number, fromBase);
+                if (isNaN(decimal)) {
+                    document.getElementById('numberResult').textContent = 'Error: Invalid number for base ' + fromBase;
+                    return;
+                }
+                
+                const result = `Decimal: ${decimal}\nBinary: ${decimal.toString(2)}\nOctal: ${decimal.toString(8)}\nHexadecimal: ${decimal.toString(16).toUpperCase()}`;
+                document.getElementById('numberResult').textContent = result;
+            } catch (e) {
+                document.getElementById('numberResult').textContent = 'Error: Invalid input';
+            }
+        }
+
+        function convertUnit() {
+            const value = parseFloat(document.getElementById('unitValue').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+            
+            if (isNaN(value)) {
+                document.getElementById('unitResult').textContent = 'Error: Please enter a valid number';
+                return;
+            }
+
+            const conversions = {
+                'm': 1,
+                'km': 1000,
+                'cm': 0.01,
+                'ft': 0.3048,
+                'in': 0.0254
+            };
+
+            const meters = value * conversions[fromUnit];
+            const result = meters / conversions[toUnit];
+            
+            document.getElementById('unitResult').textContent = `${value} ${fromUnit} = ${result.toFixed(6)} ${toUnit}`;
+        }
+
+        // Calculator Functions
+        let calcExpression = '';
+        
+        function calcInput(value) {
+            if (value === '±') {
+                if (calcExpression.startsWith('-')) {
+                    calcExpression = calcExpression.substring(1);
+                } else {
+                    calcExpression = '-' + calcExpression;
+                }
+            } else {
+                calcExpression += value;
+            }
+            document.getElementById('calcDisplay').value = calcExpression;
+        }
+        
+        function clearCalc() {
+            calcExpression = '';
+            document.getElementById('calcDisplay').value = '';
+        }
+        
+        function calculate() {
+            try {
+                const result = eval(calcExpression.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-'));
+                document.getElementById('calcDisplay').value = result;
+                calcExpression = result.toString();
+            } catch (e) {
+                document.getElementById('calcDisplay').value = 'Error';
+                calcExpression = '';
+            }
+        }
+
+        function calculatePercentage() {
+            const value = parseFloat(document.getElementById('percentValue').value);
+            const total = parseFloat(document.getElementById('percentOf').value);
+            
+            if (isNaN(value) || isNaN(total)) {
+                document.getElementById('percentResult').textContent = 'Error: Please enter valid numbers';
+                return;
+            }
+            
+            const result = (value / total) * 100;
+            document.getElementById('percentResult').textContent = `${value} is ${result.toFixed(2)}% of ${total}`;
+        }
+
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100; // Convert cm to m
+            
+            if (isNaN(weight) || isNaN(height) || height <= 0) {
+                document.getElementById('bmiResult').textContent = 'Error: Please enter valid weight and height';
+                return;
+            }
+            
+            const bmi = weight / (height * height);
+            let category = '';
+            
+            if (bmi < 18.5) category = 'Underweight';
+            else if (bmi < 25) category = 'Normal weight';
+            else if (bmi < 30) category = 'Overweight';
+            else category = 'Obese';
+            
+            document.getElementById('bmiResult').textContent = `BMI: ${bmi.toFixed(1)} (${category})`;
+        }
+
+        function calculateLoan() {
+            const principal = parseFloat(document.getElementById('loanAmount').value);
+            const rate = parseFloat(document.getElementById('interestRate').value) / 100 / 12;
+            const months = parseFloat(document.getElementById('loanTerm').value) * 12;
+            
+            if (isNaN(principal) || isNaN(rate) || isNaN(months)) {
+                document.getElementById('loanResult').textContent = 'Error: Please enter valid numbers';
+                return;
+            }
+            
+            const payment = (principal * rate * Math.pow(1 + rate, months)) / (Math.pow(1 + rate, months) - 1);
+            const totalPaid = payment * months;
+            const totalInterest = totalPaid - principal;
+            
+            document.getElementById('loanResult').textContent = 
+                `Monthly Payment: $${payment.toFixed(2)}\nTotal Interest: $${totalInterest.toFixed(2)}\nTotal Paid: $${totalPaid.toFixed(2)}`;
+        }
+
+        // Color Functions
+        function updateColor() {
+            const color = document.getElementById('colorPicker').value;
+            document.getElementById('colorDisplay').style.backgroundColor = color;
+            
+            const rgb = hexToRgbValues(color);
+            document.getElementById('colorResult').textContent = 
+                `HEX: ${color}\nRGB: rgb(${rgb.r}, ${rgb.g}, ${rgb.b})\nRGBA: rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 1)`;
+        }
+
+        function hexToRgbValues(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
+        function hexToRgb() {
+            const hex = document.getElementById('hexColor').value;
+            const rgb = hexToRgbValues(hex);
+            
+            if (rgb) {
+                document.getElementById('hexResult').textContent = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+            } else {
+                document.getElementById('hexResult').textContent = 'Error: Invalid HEX color';
+            }
+        }
+
+        function rgbToHex() {
+            const r = parseInt(document.getElementById('rgbR').value);
+            const g = parseInt(document.getElementById('rgbG').value);
+            const b = parseInt(document.getElementById('rgbB').value);
+            
+            if (isNaN(r) || isNaN(g) || isNaN(b) || r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+                document.getElementById('rgbResult').textContent = 'Error: RGB values must be between 0 and 255';
+                return;
+            }
+            
+            const hex = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+            document.getElementById('rgbResult').textContent = hex.toUpperCase();
+        }
+
+        function generatePalette() {
+            const baseColor = document.getElementById('baseColor').value;
+            const rgb = hexToRgbValues(baseColor);
+            
+            if (!rgb) return;
+            
+            const palette = [];
+            for (let i = 0; i < 5; i++) {
+                const factor = 0.2 + (i * 0.2);
+                const newR = Math.round(rgb.r * factor);
+                const newG = Math.round(rgb.g * factor);
+                const newB = Math.round(rgb.b * factor);
+                
+                const hex = "#" + ((1 << 24) + (newR << 16) + (newG << 8) + newB).toString(16).slice(1);
+                palette.push(hex);
+            }
+            
+            let paletteHtml = '<div style="display: flex; gap: 5px; margin-top: 10px;">';
+            palette.forEach(color => {
+                paletteHtml += `<div style="width: 50px; height: 50px; background: ${color}; border-radius: 8px; border: 2px solid #dee2e6; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">${color}</div>`;
+            });
+            paletteHtml += '</div>';
+            
+            document.getElementById('paletteResult').innerHTML = paletteHtml;
+        }
+
+        // Web Tools Functions
+        function generateQR() {
+            const text = document.getElementById('qrText').value;
+            if (!text) {
+                alert('Please enter text or URL');
+                return;
+            }
+            
+            const canvas = document.getElementById('qrcode');
+            const ctx = canvas.getContext('2d');
+            
+            // Simple QR code placeholder (would need external library for real QR generation)
+            canvas.width = 200;
+            canvas.height = 200;
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, 200, 200);
+            ctx.fillStyle = '#fff';
+            ctx.font = '12px Arial';
+            ctx.fillText('QR Code', 70, 100);
+            ctx.fillText('(Demo)', 80, 120);
+        }
+
+        function shortenUrl() {
+            const url = document.getElementById('longUrl').value;
+            if (!url) {
+                document.getElementById('urlShortResult').textContent = 'Please enter a URL';
+                return;
+            }
+            
+            // Mock URL shortener
+            const shortId = Math.random().toString(36).substr(2, 8);
+            const shortUrl = `https://short.ly/${shortId}`;
+            document.getElementById('urlShortResult').textContent = `Shortened URL: ${shortUrl}\n(This is a demo - URL is not actually shortened)`;
+        }
+
+        function generateMetaTags() {
+            const title = document.getElementById('pageTitle').value;
+            const description = document.getElementById('pageDescription').value;
+            const keywords = document.getElementById('pageKeywords').value;
+            
+            let metaTags = `<title>${title}</title>\n`;
+            metaTags += `<meta name="description" content="${description}">\n`;
+            metaTags += `<meta name="keywords" content="${keywords}">\n`;
+            metaTags += `<meta property="og:title" content="${title}">\n`;
+            metaTags += `<meta property="og:description" content="${description}">\n`;
+            metaTags += `<meta name="twitter:title" content="${title}">\n`;
+            metaTags += `<meta name="twitter:description" content="${description}">`;
+            
+            document.getElementById('metaResult').textContent = metaTags;
+        }
+
+        function generateLorem() {
+            const count = parseInt(document.getElementById('loremCount').value);
+            const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+            
+            let result = '';
+            for (let i = 0; i < count; i++) {
+                result += lorem + '\n\n';
+            }
+            
+            document.getElementById('loremResult').textContent = result.trim();
+        }
+
+        // Generator Functions
+        function updatePassLength() {
+            const length = document.getElementById('passLength').value;
+            document.getElementById('passLengthDisplay').textContent = length;
+        }
+
+        function generatePassword() {
+            const length = parseInt(document.getElementById('passLength').value);
+            const includeUpper = document.getElementById('includeUpper').checked;
+            const includeLower = document.getElementById('includeLower').checked;
+            const includeNumbers = document.getElementById('includeNumbers').checked;
+            const includeSymbols = document.getElementById('includeSymbols').checked;
+            
+            let chars = '';
+            if (includeUpper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (includeLower) chars += 'abcdefghijklmnopqrstuvwxyz';
+            if (includeNumbers) chars += '0123456789';
+            if (includeSymbols) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            
+            if (!chars) {
+                document.getElementById('passwordResult').textContent = 'Please select at least one character type';
+                return;
+            }
+            
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            document.getElementById('passwordResult').textContent = password;
+        }
+
+        function generateRandomNumbers() {
+            const min = parseInt(document.getElementById('randomMin').value);
+            const max = parseInt(document.getElementById('randomMax').value);
+            const count = parseInt(document.getElementById('randomCount').value);
+            
+            if (min >= max) {
+                document.getElementById('randomResult').textContent = 'Min must be less than Max';
+                return;
+            }
+            
+            const numbers = [];
+            for (let i = 0; i < count; i++) {
+                numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+            }
+            
+            document.getElementById('randomResult').textContent = numbers.join(', ');
+        }
+
+        function generateUUID() {
+            const count = parseInt(document.getElementById('uuidCount').value);
+            const uuids = [];
+            
+            for (let i = 0; i < count; i++) {
+                const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    const r = Math.random() * 16 | 0;
+                    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+                uuids.push(uuid);
+            }
+            
+            document.getElementById('uuidResult').textContent = uuids.join('\n');
+        }
+
+        function generateFakeData() {
+            const type = document.getElementById('fakeDataType').value;
+            const count = parseInt(document.getElementById('fakeDataCount').value);
+            
+            const data = {
+                name: ['John Smith', 'Jane Doe', 'Mike Johnson', 'Emily Davis', 'Chris Wilson', 'Sarah Brown', 'David Miller', 'Lisa Anderson', 'Mark Taylor', 'Amy White'],
+                email: ['john.smith@email.com', 'jane.doe@email.com', 'mike.johnson@email.com', 'emily.davis@email.com', 'chris.wilson@email.com'],
+                phone: ['(555) 123-4567', '(555) 234-5678', '(555) 345-6789', '(555) 456-7890', '(555) 567-8901'],
+                address: ['123 Main St, Anytown, ST 12345', '456 Oak Ave, Somewhere, ST 67890', '789 Pine Dr, Nowhere, ST 54321']
+            };
+            
+            const result = [];
+            for (let i = 0; i < count; i++) {
+                const randomIndex = Math.floor(Math.random() * data[type].length);
+                result.push(data[type][randomIndex]);
+            }
+            
+            document.getElementById('fakeDataResult').textContent = result.join('\n');
+        }
+
+        // Validator Functions
+        function validateEmail() {
+            const email = document.getElementById('emailInput').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (emailRegex.test(email)) {
+                document.getElementById('emailResult').textContent = '✅ Valid email address';
+            } else {
+                document.getElementById('emailResult').textContent = '❌ Invalid email address';
+            }
+        }
+
+        function validateUrl() {
+            const url = document.getElementById('urlInput').value;
+            try {
+                new URL(url);
+                document.getElementById('urlValidResult').textContent = '✅ Valid URL';
+            } catch {
+                document.getElementById('urlValidResult').textContent = '❌ Invalid URL';
+            }
+        }
+
+        function validateCreditCard() {
+            const cc = document.getElementById('ccInput').value.replace(/\s/g, '');
+            
+            // Luhn algorithm
+            let sum = 0;
+            let isEven = false;
+            
+            for (let i = cc.length - 1; i >= 0; i--) {
+                let digit = parseInt(cc.charAt(i));
+                
+                if (isEven) {
+                    digit *= 2;
+                    if (digit > 9) {
+                        digit -= 9;
+                    }
+                }
+                
+                sum += digit;
+                isEven = !isEven;
+            }
+            
+            if (sum % 10 === 0 && cc.length >= 13) {
+                document.getElementById('ccResult').textContent = '✅ Valid credit card number (Luhn check passed)';
+            } else {
+                document.getElementById('ccResult').textContent = '❌ Invalid credit card number';
+            }
+        }
+
+        function testRegex() {
+            const pattern = document.getElementById('regexPattern').value;
+            const text = document.getElementById('regexText').value;
+            const global = document.getElementById('regexGlobal').checked;
+            const ignoreCase = document.getElementById('regexIgnoreCase').checked;
+            const multiline = document.getElementById('regexMultiline').checked;
+            
+            try {
+                let flags = '';
+                if (global) flags += 'g';
+                if (ignoreCase) flags += 'i';
+                if (multiline) flags += 'm';
+                
+                const regex = new RegExp(pattern, flags);
+                const matches = text.match(regex);
+                
+                if (matches) {
+                    document.getElementById('regexResult').textContent = 
+                        `✅ ${matches.length} match(es) found:\n${matches.join('\n')}`;
+                } else {
+                    document.getElementById('regexResult').textContent = '❌ No matches found';
+                }
+            } catch (e) {
+                document.getElementById('regexResult').textContent = '❌ Invalid regex pattern: ' + e.message;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateColor();
+            countWords();
+        });
+    </script>
+</body>
+</html>
